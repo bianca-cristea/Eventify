@@ -1,4 +1,4 @@
-package com.cbianca.eventify.tickets;
+package com.cbianca.eventify.ticket_validation;
 
 public enum TicketValidationStatusEnum {
     VALID, INVALID, EXPIRED
