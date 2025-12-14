@@ -1,6 +1,7 @@
 package com.cbianca.eventify.tickets;
 
 
+import com.cbianca.eventify.qr.QrCode;
 import com.cbianca.eventify.ticket_types.TicketType;
 import com.cbianca.eventify.ticket_validation.TicketValidation;
 import com.cbianca.eventify.user.User;
@@ -43,6 +44,9 @@ public class Ticket {
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
     private List<TicketValidation> validations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+    private List<QrCode> qrCodes = new ArrayList<>();
 
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)
