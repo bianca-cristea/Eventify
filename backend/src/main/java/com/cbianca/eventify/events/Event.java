@@ -1,5 +1,6 @@
 package com.cbianca.eventify.events;
 
+import com.cbianca.eventify.ticket_types.TicketType;
 import com.cbianca.eventify.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -56,6 +57,9 @@ public class Event {
 
     @ManyToMany(mappedBy = "crewingEvents")
     private List<User> crew = new ArrayList<>();
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    private List<TicketType> ticketTypes = new ArrayList<>();
 
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)
