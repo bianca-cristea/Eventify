@@ -2,6 +2,7 @@ package com.cbianca.eventify.tickets;
 
 
 import com.cbianca.eventify.ticket_types.TicketType;
+import com.cbianca.eventify.ticket_validation.TicketValidation;
 import com.cbianca.eventify.user.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +10,9 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -37,6 +40,9 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "purchaser_id")
     private User purchaser;
+
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL)
+    private List<TicketValidation> validations = new ArrayList<>();
 
     @CreatedDate
     @Column(name = "created_at", updatable = false, nullable = false)
