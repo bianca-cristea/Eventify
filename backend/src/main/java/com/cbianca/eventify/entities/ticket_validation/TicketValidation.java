@@ -1,7 +1,7 @@
-package com.cbianca.eventify.ticket_validation;
+package com.cbianca.eventify.entities.ticket_validation;
 
 
-import com.cbianca.eventify.tickets.Ticket;
+import com.cbianca.eventify.entities.tickets.Ticket;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

@@ -1,12 +1,10 @@
-package com.cbianca.eventify.user;
+package com.cbianca.eventify.entities.user;
 
-import com.cbianca.eventify.events.Event;
+import com.cbianca.eventify.entities.events.Event;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

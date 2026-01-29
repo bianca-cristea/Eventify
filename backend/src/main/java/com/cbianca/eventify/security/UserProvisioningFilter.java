@@ -1,4 +1,6 @@
-package com.cbianca.eventify.user;
+package com.cbianca.eventify.security;
+import com.cbianca.eventify.entities.user.User;
+import com.cbianca.eventify.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

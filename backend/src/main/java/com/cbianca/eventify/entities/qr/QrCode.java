@@ -1,6 +1,6 @@
-package com.cbianca.eventify.qr;
+package com.cbianca.eventify.entities.qr;
 
-import com.cbianca.eventify.tickets.Ticket;
+import com.cbianca.eventify.entities.tickets.Ticket;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

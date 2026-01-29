@@ -1,4 +1,4 @@
-package com.cbianca.eventify.events;
+package com.cbianca.eventify.entities.events;
 
 public enum EventStatusEnum {
     DRAFT, PUBLISHED, CANCELLED,COMPLETED

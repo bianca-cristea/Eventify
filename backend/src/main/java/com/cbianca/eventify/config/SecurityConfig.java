@@ -1,6 +1,6 @@
 package com.cbianca.eventify.config;
 
-import com.cbianca.eventify.user.UserProvisioningFilter;
+import com.cbianca.eventify.security.UserProvisioningFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;

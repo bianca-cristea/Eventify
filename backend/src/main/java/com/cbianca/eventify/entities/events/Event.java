@@ -1,7 +1,7 @@
-package com.cbianca.eventify.events;
+package com.cbianca.eventify.entities.events;
 
-import com.cbianca.eventify.ticket_types.TicketType;
-import com.cbianca.eventify.user.User;
+import com.cbianca.eventify.entities.ticket_types.TicketType;
+import com.cbianca.eventify.entities.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

@@ -1,5 +1,6 @@
-package com.cbianca.eventify.user;
+package com.cbianca.eventify.repositories;
 
+import com.cbianca.eventify.entities.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
