@@ -1,11 +1,11 @@
 package com.cbianca.eventify.entities.ticket_validation;
 
-
 import com.cbianca.eventify.entities.tickets.Ticket;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -13,6 +13,7 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "ticket_validations")
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -25,21 +26,20 @@ public class TicketValidation {
     @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
 
-    @Column(name = "status", nullable = false)
     @Enumerated(EnumType.STRING)
+    @Column(name = "status", nullable = false)
     private TicketValidationStatusEnum status;
 
-    @Column(name = "validation_method", nullable = false)
     @Enumerated(EnumType.STRING)
+    @Column(name = "validation_method", nullable = false)
     private TicketValidationMethod validationMethod;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ticket_id")
-    @Column(name = "ticket" , nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "ticket_id", nullable = false)
     private Ticket ticket;
 
     @CreatedDate
-    @Column(name = "created_at", updatable = false, nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @LastModifiedDate
@@ -49,13 +49,12 @@ public class TicketValidation {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        TicketValidation that = (TicketValidation) o;
-        return Objects.equals(id, that.id) && status == that.status && validationMethod == that.validationMethod && Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
+        if (!(o instanceof TicketValidation that)) return false;
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, status, validationMethod, createdAt, updatedAt);
+        return Objects.hash(id);
     }
 }
