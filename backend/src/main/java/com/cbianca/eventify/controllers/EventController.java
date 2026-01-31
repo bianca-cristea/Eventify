@@ -2,20 +2,20 @@ package com.cbianca.eventify.controllers;
 
 import com.cbianca.eventify.dtos.CreateEventRequestDTO;
 import com.cbianca.eventify.dtos.CreateEventResponseDTO;
+import com.cbianca.eventify.dtos.ListEventResponseDTO;
 import com.cbianca.eventify.entities.events.CreateEventRequest;
 import com.cbianca.eventify.entities.events.Event;
 import com.cbianca.eventify.mapper.EventMapper;
 import com.cbianca.eventify.services.EventService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 @RestController
@@ -34,7 +34,7 @@ public class EventController {
         CreateEventRequest createEventRequest =
                 eventMapper.fromDTO(createEventRequestDTO);
 
-        UUID userId = UUID.fromString(jwt.getSubject());
+        UUID userId = parseUserId(jwt);
 
         Event eventCreated =
                 eventService.createEvent(userId, createEventRequest);
@@ -43,5 +43,18 @@ public class EventController {
                 eventMapper.toDTO(eventCreated);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
+    }
+
+
+    @GetMapping
+    public ResponseEntity<Page<ListEventResponseDTO>> listEvents(@AuthenticationPrincipal Jwt jwt, Pageable pageable){
+
+        UUID userId = parseUserId(jwt);
+        Page<Event> events = eventService.listEventsForOrganizer(userId,pageable);
+        return ResponseEntity.ok(events.map(eventMapper::toListEventResponseDTO));
+    }
+
+    private UUID parseUserId(Jwt jwt){
+        return UUID.fromString(jwt.getSubject());
     }
 }
