@@ -2,6 +2,7 @@ package com.cbianca.eventify.controllers;
 
 import com.cbianca.eventify.dtos.CreateEventRequestDTO;
 import com.cbianca.eventify.dtos.CreateEventResponseDTO;
+import com.cbianca.eventify.dtos.GetEventDetailsResponseDTO;
 import com.cbianca.eventify.dtos.ListEventResponseDTO;
 import com.cbianca.eventify.entities.events.CreateEventRequest;
 import com.cbianca.eventify.entities.events.Event;
@@ -52,6 +53,20 @@ public class EventController {
         UUID userId = parseUserId(jwt);
         Page<Event> events = eventService.listEventsForOrganizer(userId,pageable);
         return ResponseEntity.ok(events.map(eventMapper::toListEventResponseDTO));
+    }
+
+    @GetMapping(path = "/{eventId}")
+    public  ResponseEntity<GetEventDetailsResponseDTO> getEvent(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID eventId
+    ) {
+
+        UUID userId = parseUserId(jwt);
+        return eventService.getEventForOrganizer(userId, eventId)
+                .map(eventMapper::toGetEventDetailsResponseDTO)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound ().build());
+
     }
 
     private UUID parseUserId(Jwt jwt){

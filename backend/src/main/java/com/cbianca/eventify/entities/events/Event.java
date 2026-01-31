@@ -59,7 +59,7 @@ public class Event {
     @ManyToMany(mappedBy = "crewingEvents")
     private List<User> crew = new ArrayList<>();
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<TicketType> ticketTypes = new ArrayList<>();
 
     @CreatedDate
@@ -83,4 +83,6 @@ public class Event {
     public int hashCode() {
         return Objects.hash(id, name, start, end, venue, salesStartDate, salesEndDate, status, createdAt, updatedAt);
     }
+
+
 }

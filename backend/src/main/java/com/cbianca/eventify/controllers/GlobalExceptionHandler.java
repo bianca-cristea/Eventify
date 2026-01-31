@@ -2,6 +2,9 @@ package com.cbianca.eventify.controllers;
 
 
 import com.cbianca.eventify.dtos.ErrorDTO;
+import com.cbianca.eventify.exceptions.EventNotFoundException;
+import com.cbianca.eventify.exceptions.EventUpdateException;
+import com.cbianca.eventify.exceptions.TicketTypeNotFoundException;
 import com.cbianca.eventify.exceptions.UserNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
@@ -58,6 +61,35 @@ public class GlobalExceptionHandler {
 
     }
 
+    @ExceptionHandler(EventNotFoundException.class)
+    public ResponseEntity<ErrorDTO> handleEventNotFoundException(Exception exc){
+        log.error("Caught EventNotFoundException", exc);
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Event not found");
+
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+
+    }
+
+    @ExceptionHandler(TicketTypeNotFoundException.class)
+    public ResponseEntity<ErrorDTO> handleTicketTypeNotFoundException(Exception exc){
+        log.error("Caught TicketTypeNotFoundException", exc);
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("TicketType not found");
+
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+
+    }
+
+    @ExceptionHandler(EventUpdateException.class)
+    public ResponseEntity<ErrorDTO> handleEventUpdateException(Exception exc){
+        log.error("Caught EventUpdateException", exc);
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("EventUpdate not found");
+
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+
+    }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDTO> handleException(Exception exc) {
