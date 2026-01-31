@@ -1,11 +1,9 @@
 package com.cbianca.eventify.controllers;
 
-import com.cbianca.eventify.dtos.CreateEventRequestDTO;
-import com.cbianca.eventify.dtos.CreateEventResponseDTO;
-import com.cbianca.eventify.dtos.GetEventDetailsResponseDTO;
-import com.cbianca.eventify.dtos.ListEventResponseDTO;
+import com.cbianca.eventify.dtos.*;
 import com.cbianca.eventify.entities.events.CreateEventRequest;
 import com.cbianca.eventify.entities.events.Event;
+import com.cbianca.eventify.entities.events.UpdateEventRequest;
 import com.cbianca.eventify.mapper.EventMapper;
 import com.cbianca.eventify.services.EventService;
 import jakarta.validation.Valid;
@@ -46,6 +44,25 @@ public class EventController {
         return ResponseEntity.status(HttpStatus.CREATED).body(responseDTO);
     }
 
+    @PutMapping(path = "/{eventId}")
+    public ResponseEntity<UpdateEventResponseDTO> updateEvent(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID eventId,
+            @Valid @RequestBody UpdateEventRequestDTO updateEventRequestDTO) {
+
+        UpdateEventRequest updateEventRequest =
+                eventMapper.fromDTO(updateEventRequestDTO);
+
+        UUID userId = parseUserId(jwt);
+
+        Event eventUpdated =
+                eventService.updateEventForOrganizer(userId, eventId, updateEventRequest);
+
+        UpdateEventResponseDTO responseDTO =
+                eventMapper.toUpdateEventResponseDTO(eventUpdated);
+
+        return ResponseEntity.ok(responseDTO);
+    }
 
     @GetMapping
     public ResponseEntity<Page<ListEventResponseDTO>> listEvents(@AuthenticationPrincipal Jwt jwt, Pageable pageable){
