@@ -84,6 +84,17 @@
 			<version>${mapstruct.version}</version>
 			<scope>provided</scope>
 		</dependency>
+<!--This next 2 dependencies will help with generating the qr code-->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>3.5.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>3.5.1</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

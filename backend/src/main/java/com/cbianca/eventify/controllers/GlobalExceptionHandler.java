@@ -2,10 +2,7 @@ package com.cbianca.eventify.controllers;
 
 
 import com.cbianca.eventify.dtos.ErrorDTO;
-import com.cbianca.eventify.exceptions.EventNotFoundException;
-import com.cbianca.eventify.exceptions.EventUpdateException;
-import com.cbianca.eventify.exceptions.TicketTypeNotFoundException;
-import com.cbianca.eventify.exceptions.UserNotFoundException;
+import com.cbianca.eventify.exceptions.*;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
@@ -88,6 +85,16 @@ public class GlobalExceptionHandler {
         errorDTO.setError("EventUpdate not found");
 
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+
+    }
+
+    @ExceptionHandler(QrCodeGenerationException.class)
+    public ResponseEntity<ErrorDTO> handleQrCodeGenerationException(QrCodeGenerationException exc){
+        log.error("Caught QrCodeGenerationException", exc);
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setError("Unable to generate QR code");
+
+        return new ResponseEntity<>(errorDTO, HttpStatus.INTERNAL_SERVER_ERROR);
 
     }
 
