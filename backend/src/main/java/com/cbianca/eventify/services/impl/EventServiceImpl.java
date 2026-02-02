@@ -2,6 +2,7 @@ package com.cbianca.eventify.services.impl;
 
 import com.cbianca.eventify.entities.events.CreateEventRequest;
 import com.cbianca.eventify.entities.events.Event;
+import com.cbianca.eventify.entities.events.EventStatusEnum;
 import com.cbianca.eventify.entities.events.UpdateEventRequest;
 import com.cbianca.eventify.entities.ticket_types.TicketType;
 import com.cbianca.eventify.entities.ticket_types.UpdateTicketTypeRequest;
@@ -135,6 +136,21 @@ public class EventServiceImpl implements EventService {
     @Transactional
     public void deleteEventForOrganizer(UUID organizerId, UUID id) {
         getEventForOrganizer(organizerId,id).ifPresent(eventRepository::delete);
+    }
+
+    @Override
+    public Page<Event> listPublishedEvents(Pageable pageable) {
+        return eventRepository.findByStatus(EventStatusEnum.PUBLISHED,pageable);
+    }
+
+    @Override
+    public Page<Event> searchPublishedEvents(String query, Pageable pageable) {
+        return eventRepository.searchEvents(query,pageable);
+    }
+
+    @Override
+    public Optional<Event> getPublishedEvent(UUID id) {
+       return eventRepository.findByIdAndStatus(id, EventStatusEnum.PUBLISHED);
     }
 
 }

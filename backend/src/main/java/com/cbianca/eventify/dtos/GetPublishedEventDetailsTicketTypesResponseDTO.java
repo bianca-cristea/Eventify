@@ -13,15 +13,9 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetEventDetailsTicketTypesResponseDTO {
+public class GetPublishedEventDetailsTicketTypesResponseDTO {
     private UUID id;
     private String name;
     private Double price;
     private String description;
-    private Integer totalAvailable;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private List<GetPublishedEventDetailsTicketTypesResponseDTO> ticketTypes = new ArrayList<>();
-
-
 }

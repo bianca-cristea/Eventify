@@ -1,6 +1,6 @@
 package com.cbianca.eventify.dtos;
 
-
+import com.cbianca.eventify.entities.events.EventStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,15 +13,13 @@ import java.util.UUID;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetEventDetailsTicketTypesResponseDTO {
+public class GetPublishedEventDetailsResponseDTO {
+
     private UUID id;
     private String name;
-    private Double price;
-    private String description;
-    private Integer totalAvailable;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private List<GetPublishedEventDetailsTicketTypesResponseDTO> ticketTypes = new ArrayList<>();
-
+    private LocalDateTime start;
+    private LocalDateTime end;
+    private String venue;
+    private List<GetEventDetailsTicketTypesResponseDTO> ticketTypes = new ArrayList<>();
 
 }
