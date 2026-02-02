@@ -14,16 +14,21 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http, UserProvisioningFilter userProvisioningFilter) throws Exception{
+    public SecurityFilterChain filterChain(
+            HttpSecurity http,
+            UserProvisioningFilter userProvisioningFilter,
+            JwtAuthenticationConverter jwtAuthenticationConverter) throws Exception{
 
-        //every request will be authenticated by default
+
         http
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.GET,"api/published-events/**").permitAll()
+                        .requestMatchers("/api/events").hasRole("ORGANIZER")
+                        .requestMatchers("/api/ticket-validations").hasRole("STAFF")
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()))
+                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)))
                 .addFilterAfter(userProvisioningFilter, BearerTokenAuthenticationFilter.class);
 
         return http.build();

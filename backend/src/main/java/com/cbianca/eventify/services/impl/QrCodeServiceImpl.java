@@ -4,6 +4,7 @@ import com.cbianca.eventify.entities.qr.QrCode;
 import com.cbianca.eventify.entities.qr.QrCodeStatusEnum;
 import com.cbianca.eventify.entities.tickets.Ticket;
 import com.cbianca.eventify.exceptions.QrCodeGenerationException;
+import com.cbianca.eventify.exceptions.QrCodeNotFoundException;
 import com.cbianca.eventify.repositories.QRCodeRepository;
 import com.cbianca.eventify.services.QrCodeService;
 import com.google.zxing.BarcodeFormat;
@@ -12,6 +13,7 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -25,6 +27,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class QrCodeServiceImpl implements QrCodeService {
 
     private static final int QR_HEIGHT = 300;
@@ -48,6 +51,20 @@ public class QrCodeServiceImpl implements QrCodeService {
 
         } catch (WriterException | IOException  exc){
           throw new QrCodeGenerationException("Failed to generate QR code", exc);
+        }
+    }
+
+    @Override
+    public byte[] getQrCodeImageForUserAndTicket(UUID userId, UUID ticketId) {
+        QrCode qrCode = qrCodeRepository.findByTicketIdAndTicketPurchaseId(ticketId,userId)
+                .orElseThrow(QrCodeNotFoundException::new);
+
+        try{
+            return Base64.getDecoder().decode(qrCode.getValue());
+        }
+        catch (IllegalArgumentException e){
+            log.error("Invalid base64 qr code for ticket with id {}",ticketId, e);
+            throw new QrCodeNotFoundException();
         }
     }
 
