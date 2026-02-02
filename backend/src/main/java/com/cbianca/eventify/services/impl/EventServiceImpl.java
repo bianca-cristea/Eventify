@@ -67,7 +67,7 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Optional<Event> getEventForOrganizer(UUID organizerId, UUID id) {
-        return eventRepository.findByIdAndOrganizerOd(id, organizerId);
+        return eventRepository.findByIdAndOrganizerId(id, organizerId);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class EventServiceImpl implements EventService {
             throw new EventUpdateException("Cannot update the id of the event.");
         }
         Event existingEvent = eventRepository
-                .findByIdAndOrganizerOd(id, organizerId)
+                .findByIdAndOrganizerId(id, organizerId)
                 .orElseThrow(() -> new EventNotFoundException("This event does not exist."));
 
         existingEvent.setName(event.getName());
@@ -130,4 +130,11 @@ public class EventServiceImpl implements EventService {
         }
         return eventRepository.save(existingEvent);
     }
+
+    @Override
+    @Transactional
+    public void deleteEventForOrganizer(UUID organizerId, UUID id) {
+        getEventForOrganizer(organizerId,id).ifPresent(eventRepository::delete);
+    }
+
 }

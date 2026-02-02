@@ -13,5 +13,5 @@ import java.util.UUID;
 public interface EventRepository extends JpaRepository<Event, UUID> {
 
     Page<Event> findByOrganizerId(UUID organizerId, Pageable pageable);
-    Optional<Event> findByIdAndOrganizerOd(UUID id, UUID organizerId);
+    Optional<Event> findByIdAndOrganizerId(UUID eventId, UUID organizerId);
 }
