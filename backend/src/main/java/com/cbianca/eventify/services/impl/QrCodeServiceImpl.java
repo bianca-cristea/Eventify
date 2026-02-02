@@ -31,7 +31,7 @@ public class QrCodeServiceImpl implements QrCodeService {
     private static final int QR_WIDTH = 300;
 
     private final QRCodeWriter qrCodeWriter;
-    private QRCodeRepository qrCodeRepository;
+    private final QRCodeRepository qrCodeRepository;
 
     @Override
     public QrCode generateQrCode(Ticket ticket) {
