@@ -61,7 +61,7 @@ public class TicketController {
         @AuthenticationPrincipal Jwt jwt,
         @PathVariable UUID ticketID
     ){
-        byte[] qrCodeImage = qrCodeService.getQrCodeImageForUserAndTicket(parseUserId(jwt),ticketID)
+        byte[] qrCodeImage = qrCodeService.getQrCodeImageForUserAndTicket(parseUserId(jwt),ticketID);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
         headers.setContentLength(qrCodeImage.length);
