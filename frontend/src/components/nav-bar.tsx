@@ -9,7 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { LogOut } from "lucide-react";
-import { useRoles } from "@/hooks/use-roles";
+import { useRoles } from "../hooks/use-roles";
 import { Link } from "react-router";
 
 const NavBar: React.FC = () => {
@@ -21,7 +21,11 @@ const NavBar: React.FC = () => {
       <div className="container mx-auto p-4">
         <div className="flex justify-between items-center">
           <div className="flex gap-10 md:gap-20 items-center">
-            <h1 className="text-xl font-bold">Event Ticket Platform</h1>
+            <Link to="/">
+              <h1 className="text-xl font-bold text-shadow-fuchsia-700">
+                Eventify
+              </h1>
+            </Link>
             <div className="text-gray-300 flex gap-8">
               {isOrganizer && <Link to="/dashboard/events">Events</Link>}
               <Link to="/dashboard/tickets">Tickets</Link>

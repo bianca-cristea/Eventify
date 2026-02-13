@@ -1,12 +1,12 @@
-import RandomEventImage from "@/components/random-event-image";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import {
+import RandomEventImage from "../components/random-event-image";
+import { Alert, AlertDescription, AlertTitle } from "../components/ui/alert";
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardHeader } from "../components/ui/card";
+import type {
   PublishedEventDetails,
   PublishedEventTicketTypeDetails,
-} from "@/domain/domain";
-import { getPublishedEvent } from "@/lib/api";
+} from "../domain/domain";
+import { getPublishedEvent } from "../lib/api";
 import { AlertCircle, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "react-oidc-context";

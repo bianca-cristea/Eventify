@@ -17,7 +17,6 @@ public class UpdateTicketTypeResponseDTO {
     private Double price;
     private String description;
     private Integer totalAvailable;
-    private Event event;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }

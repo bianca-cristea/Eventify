@@ -45,7 +45,7 @@ public class TicketController {
 
     }
 
-    @GetMapping(path = "/{tickteId}")
+    @GetMapping(path = "/{ticketId}")
     public ResponseEntity<GetTicketResponseDTO> getTicket(
             @AuthenticationPrincipal Jwt jwt,
             @PathVariable UUID ticketId

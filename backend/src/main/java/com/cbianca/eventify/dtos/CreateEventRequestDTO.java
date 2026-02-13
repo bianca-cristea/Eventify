@@ -16,19 +16,24 @@ import jakarta.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateEventRequestDTO {
-    @NotBlank(message = "Please provide event name")
+    @NotBlank(message = "Event name is required")
     private String name;
+
     private LocalDateTime start;
+
     private LocalDateTime end;
 
-    @NotBlank(message = "Please provide venue details")
+    @NotBlank(message = "Venue information is required")
     private String venue;
+
     private LocalDateTime salesStart;
+
     private LocalDateTime salesEnd;
 
-    @NotNull(message = "Please provide event status")
+    @NotNull(message = "Event status must be provided")
     private EventStatusEnum status;
-    @NotEmpty(message = "Please provide at least one ticket type")
-    @Valid()
+
+    @NotEmpty(message = "At least one ticket type is required")
+    @Valid
     private List<CreateTicketTypeRequestDTO> ticketTypes;
 }

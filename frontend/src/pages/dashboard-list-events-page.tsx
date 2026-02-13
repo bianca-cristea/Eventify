@@ -161,7 +161,6 @@ const DashboardListEventsPage: React.FC = () => {
       <NavBar />
 
       <div className="max-w-lg mx-auto px-4">
-        {/* Title */}
         <div className="py-8 px-4 flex justify-between">
           <div>
             <h1 className="text-2xl font-bold">Your Events</h1>

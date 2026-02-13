@@ -1,9 +1,11 @@
 package com.cbianca.eventify.controllers;
 
 import com.cbianca.eventify.dtos.*;
+
 import com.cbianca.eventify.entities.events.CreateEventRequest;
-import com.cbianca.eventify.entities.events.Event;
 import com.cbianca.eventify.entities.events.UpdateEventRequest;
+import com.cbianca.eventify.entities.events.Event;
+
 import com.cbianca.eventify.mapper.EventMapper;
 import com.cbianca.eventify.services.EventService;
 import jakarta.validation.Valid;

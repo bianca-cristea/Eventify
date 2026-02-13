@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -17,6 +18,7 @@ import java.util.*;
 @Table(name = "tickets")
 @NoArgsConstructor
 @AllArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 @Builder
@@ -53,10 +55,15 @@ public class Ticket {
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @LastModifiedDate
+
     @Column(name = "purchased_at", nullable = false)
     private LocalDateTime purchaseDateTime;
-
+    @PrePersist
+    protected void onCreate() {
+        if (purchaseDateTime == null) {
+            purchaseDateTime = LocalDateTime.now();
+        }
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
